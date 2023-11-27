@@ -1,0 +1,46 @@
+﻿<h1>Purchase {{name}}</h1>
+
+<h3>Cost: {{cost}}</h3>
+<h3>Remaining Balance: {{balance}}</h3>
+<hr />
+
+<div *ngIf="!loading">
+    <div *ngIf="!receiptScreen" style="padding: 20px;">
+        <h4>Please pay with following</h4>
+
+        <div class="three-columns-grid">
+            <div>
+                <button [disabled]="paymentReadonly" (click)="payWithFive()" class="btn btn-primary">
+                    $5 Dollar Bill
+                </button>
+            </div>
+            <div>
+                <button [disabled]="paymentReadonly" (click)="payWithOne()" class="btn btn-primary">
+                    $1 Dollar Bill
+                </button>
+            </div>
+            <div>
+                <button  [disabled]="paymentReadonly" (click)="payWithQuarter()" class="btn btn-primary">
+                    $0.25 Quarter
+                </button>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="receiptScreen" style="padding: 20px;">
+        <h4>Payment was Successful. Please take your change.</h4>
+
+        <h4>Change Amount: {{change}}</h4>
+
+    </div>
+    <hr />
+    <div >
+        <button *ngIf="allowPayment" (click)="submitPayment();" [disabled]="loading" class="btn btn-primary">
+            <span *ngIf="submitting" class="spinner-border spinner-border-sm me-1"></span>
+            Submit Payment
+        </button>
+        <a routerLink="/vendingmachine" class="btn btn-link">Return</a>
+    </div>
+</div>
+<div *ngIf="loading" class="text-center m-5">
+    <span class="spinner-border spinner-border-lg align-center"></span>
+</div>

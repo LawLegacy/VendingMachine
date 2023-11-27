@@ -1,0 +1,54 @@
+﻿<h1>Snacks</h1>
+
+
+
+<a routerLink="add" class="btn btn-sm btn-success mb-2">Add Snack</a>
+
+<h3>Total Active: {{totalActive}}</h3>
+<h3>Total Inactive: {{totalInactive}}</h3>
+
+<h6>
+    Show 
+    <select (change)="onShowChange($event)">
+        <option value="All">All</option>
+        <option value="Active">Active</option>
+        <option value="Inactive">Inactive</option>
+    </select>
+</h6>
+ 
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th style="width: 30%">Name</th>
+            <th style="width: 30%">Quantity</th>
+            <th style="width: 30%">Cost</th>
+            <th style="width: 10%"></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let snack of filterView(snacks)">
+            <td>{{snack.name}}</td>
+            <td>{{snack.quantity}}</td>
+            <td>{{snack.cost}}</td>
+            <td>
+                <a routerLink="purchase/{{snack.id}}"  class="btn btn-sm btn-success btn-complete-snack" >Purchase</a>
+            </td>
+            <td style="white-space: nowrap">
+                
+                <a routerLink="edit/{{snack.id}}" class="btn btn-sm btn-primary me-1">Edit</a>
+
+                <button (click)="deleteSnack(snack.id)" class="btn btn-sm btn-danger btn-delete-snack" [disabled]="snack.isDeleting">
+                    <span *ngIf="snack.isDeleting" class="spinner-border spinner-border-sm"></span>
+                    <span *ngIf="!snack.isDeleting">Delete</span>
+                </button>
+                
+            </td>
+        </tr>
+        <tr *ngIf="!snacks">
+            <td colspan="4" class="text-center">
+                <span class="spinner-border spinner-border-lg align-center"></span>
+            </td>
+        </tr>
+    </tbody>
+</table>

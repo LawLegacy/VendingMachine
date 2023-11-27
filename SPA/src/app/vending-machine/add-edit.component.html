@@ -1,0 +1,49 @@
+﻿<h1>{{title}}</h1>
+<form *ngIf="!loading" [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div class="row">
+        <div class="col-7 mb-3">
+            <label class="form-label">Name</label>
+            <input type="text" formControlName="name" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.name.errors }" />
+            <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
+                <div *ngIf="f.name.errors.required">Name is required</div>
+            </div>
+        </div>
+        <div class="col-7 mb-3">
+            <label class="form-label">Quantity</label>
+            <input type="number" onkeypress="return event.charCode >= 48" min="1" formControlName="quantity" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.quantity.errors }" />
+            <div *ngIf="submitted && f.quantity.errors" class="invalid-feedback">
+                <div *ngIf="f.quantity.errors.required">quantity is required</div>
+            </div>
+        </div>
+        <div class="col-7 mb-3">
+            <label class="form-label">Cost</label>
+            <span> (USD)</span>
+            <input type="number" min="1" formControlName="cost" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.cost.errors }" />
+            <div *ngIf="submitted && f.cost.errors" class="invalid-feedback">
+                <div *ngIf="f.cost.errors.required">Cost is required</div>
+            </div>
+        </div>
+        <div class="col mb-3">
+            <label class="form-label">Status</label>
+            <select formControlName="status" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.status.errors }">
+                <option value=""></option>
+                <option value="Active">Active</option>
+                <option value="Inactive">Inactive</option>
+            </select>
+            <div *ngIf="submitted && f.status.errors" class="invalid-feedback">
+                <div *ngIf="f.status.errors.required">Status is required</div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="form-group">
+        <button [disabled]="loading" class="btn btn-primary">
+            <span *ngIf="submitting" class="spinner-border spinner-border-sm me-1"></span>
+            Save
+        </button>
+        <a routerLink="/vendingmachine" class="btn btn-link">Cancel</a>
+    </div>
+</form>
+<div *ngIf="loading" class="text-center m-5">
+    <span class="spinner-border spinner-border-lg align-center"></span>
+</div>
